@@ -13,8 +13,6 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        if(nums.empty()) return 0;
-        
         int result = 0;
         for(auto&& num: nums)
             result ^= num;
