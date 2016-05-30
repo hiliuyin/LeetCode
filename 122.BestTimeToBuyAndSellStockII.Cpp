@@ -15,7 +15,7 @@ Design an algorithm to find the maximum profit. You may complete as many transac
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-   std::vector<int>::size_type sz = prices.size();
+    std::vector<int>::size_type sz = prices.size();
          if (sz <= 1) return 0;
  
          int profit = 0;
