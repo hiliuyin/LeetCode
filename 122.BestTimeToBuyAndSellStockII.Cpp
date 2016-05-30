@@ -44,3 +44,17 @@ public:
         return result;
     }
 };
+
+// 贪心没错，但是可以优化
+    int maxProfit(vector<int>& prices) {
+        std::vector<int>::size_type sz = prices.size();
+        if (sz <= 1) return 0;
+
+        int profit = 0;
+        for (std::vector<int>::size_type i = 0; i < sz -1; ++i)
+        {
+            if (prices[i] < prices[i+1])
+                profit += prices[i+1] - prices[i];
+        }
+        return profit;
+    }
