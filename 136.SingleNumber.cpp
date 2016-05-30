@@ -21,16 +21,3 @@ public:
         return result;
     }
 };
-
-int result = 0;
-for (vector<int>::size_type i = 0; i < nums.size(); ++i) // 或者用const_iterator
-    result ^= nums[i];
-return result;
-
-// 如果用modern c++
-int result = 0;
-for (auto&& num : nums)
-    result ^= num;
-return result;
-
-
