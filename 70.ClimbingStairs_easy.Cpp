@@ -21,7 +21,7 @@ public:
         std::vector<int> climbingWay{0,1,2};
         for(int i = 3; i <= n; ++i)
         {
-            climbingWay.push_back(climbingWay[i-1] + climbingWay[i-2]);
+            climbingWay.emplace_back(climbingWay[i-1] + climbingWay[i-2]);
         }
         
         return climbingWay.back();
