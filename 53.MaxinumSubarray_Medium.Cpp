@@ -9,10 +9,9 @@ If you have figured out the O(n) solution, try coding another solution using the
 */
 
 /* 思路：
-从前往后将所有元素相加，如果加完后curSum值为负，则令sum=0；
-如果curSum>result，令result=curSum。
-
-Note：如果最后result的值为0，则需要处理数组中可能所有元素为负数的情况，扫描数组，并令result最终为数组中的最大值
+依次处理array中的每一个元素，如果当前的和大于零，curSum+=nums[i]; 
+否则，curSum=nums[i]（不需要单独处理array中元素全为负的情况）
+result=max（result，curSum）
 */
 
 // Code:
@@ -21,22 +20,13 @@ public:
     int maxSubArray(vector<int>& nums) {
         if(nums.empty()) return 0;
         
-        int result = 0;
-        int curSum = 0;
-        for(auto&& num: nums)
+        int curSum = nums[0];
+        int result = curSum;
+        for(std::vector<int>::size_type i = 1; i < nums.size(); ++i)
         {
-            curSum += num;
-            if(curSum < 0) curSum = 0;
-            else if(curSum > result) 
-                result = curSum;
-        }
-        
-        // Handle the situation that all the elements in the array are negative
-        if(result == 0)
-        {
-            result = nums[0];
-            for(int i = 1; i < nums.size(); ++i)
-            if(nums[i] > result) result = nums[i];
+            if(curSum > 0) curSum += nums[i];
+            else curSum = nums[i];
+            result = std::max(result, curSum);
         }
         
         return result;
