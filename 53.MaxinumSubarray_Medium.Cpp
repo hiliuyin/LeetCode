@@ -32,3 +32,15 @@ public:
         return result;
     }
 };
+
+// Good, 典型的贪心算法
+// following is my answer.
+   int maxSubArray(vector<int>& nums) {
+        int maxendinghere = nums[0], maxsofar = nums[0]; // because nums containing at least one number
+        for (vector<int>::const_iterator it = nums.cbegin()+1; it != nums.cend(); ++it)
+        {
+            maxendinghere = std::max(maxendinghere+*it, *it);
+            maxsofar = std::max(maxsofar, maxendinghere);
+        }
+        return maxsofar;
+    }
