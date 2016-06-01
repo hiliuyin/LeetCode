@@ -14,7 +14,7 @@ Tags: Array, Binary search
 
 /*思路：
 思路一： 从头到尾顺序比较元素
-思路二： 用二分查找比较元素
+思路二： 用二分查找比较元素,可以在代码实现的过程中用lambda表达式实现二分查找的功能。
 */
 
 //Code：
@@ -40,18 +40,23 @@ public:
 class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {
-        std::vector<int>::size_type sz = nums.size();
-        if(sz < 1) return -1;
-        int beg = 0, end = sz -1;
+        if(nums.empty()) return -1;
         
-        while(beg <= end)
+        auto binarySearch = [&nums, target]()->int
         {
-            int mid = (beg + end) / 2;
-            if(nums[mid] == target) return mid;
-            else if(nums[mid] < target) beg = mid + 1;
-            else if(nums[mid] > target) end = mid - 1;
-        }
-        
-        return (end == sz - 1)? sz : beg;
+            int low = 0, high = nums.size() - 1;
+            while(low <= high)
+            {
+                int mid = low + (high - low) / 2;
+                if(nums[mid] == target) 
+                    return mid;
+                else if(nums[mid] < target) 
+                    low = mid + 1;
+                else if(nums[mid] > target) 
+                    high = mid - 1;
+            }
+            return low;
+        };
+        return binarySearch();
     }
 };
