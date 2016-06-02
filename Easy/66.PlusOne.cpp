@@ -14,37 +14,20 @@ Tag: Array, Math
 
 //Code:
 class Solution {
-
 public:
-
     vector<int> plusOne(vector<int>& digits) {
-
         if(digits.empty()) return {0};
-
         
-
         vector<int> plusOneResult;
-
         int carry = 1;
 
         for(auto iter = digits.rbegin(); iter < digits.rend(); ++iter)
-
         {
-
             int temp = *iter + carry;
-
             plusOneResult.insert(plusOneResult.begin(), temp % 10);
-
             carry = temp / 10;
-
         }
-
-        
-
-        if(carry > 0) plusOneResult.insert(plusOneResult.begin(), carry);
-
-        return plusOneResult;
-
+      if(carry > 0) plusOneResult.insert(plusOneResult.begin(), carry);
+      return plusOneResult;
     }
-
 };
