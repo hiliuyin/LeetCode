@@ -27,7 +27,10 @@ public:
             plusOneResult.insert(plusOneResult.begin(), temp % 10);
             carry = temp / 10;
         }
-      if(carry > 0) plusOneResult.insert(plusOneResult.begin(), carry);
-      return plusOneResult;
+        
+        if(carry > 0) 
+            plusOneResult.insert(plusOneResult.begin(), carry);
+        
+        return plusOneResult;
     }
 };
