@@ -22,10 +22,16 @@ Tags: Binary Search, Divide and Conquer
 */
 
 /*思路：
-对每一行进行二分查找
+思路一：对每一行进行二分查找
+
+思路二：从第一行开始将每一行的最后一个元素跟target比较，如果：
+1）matrix[row][column]==target，返回true
+2）matrix[row][column]>target,说明元素在该行的下面，所以++row
+3）matrix[row][column]<target,说明元素在该列的左边，--column
 */
 
 //Code:
+//代码一：
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
@@ -62,5 +68,32 @@ public:
         }
         
         return false; 
+    }
+};
+
+//代码二:
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        auto binarySearch = [&matrix, target]() -> bool
+        {
+            if(matrix.empty()) return false;
+            
+            int row = 0;
+            int column = matrix[0].size()-1;
+            
+            while(row < matrix.size() && column >= 0)
+            {
+                if(matrix[row][column] == target) 
+                    return true;
+                else if(matrix[row][column] > target)
+                    --column;
+                else
+                    ++row;
+            }
+            return false;
+        };
+        
+        return binarySearch();
     }
 };
