@@ -13,6 +13,7 @@ Tags: Lined List
 
 /*思路：
 连续处理链表的两个元素，注意考虑链表有偶数个元素和奇数个元素两种情况
+Note：对于头结点指针要处理的情况，可以添加一个链表节点指向链表的第一个节点，从而将第一个节点的处理情况与后面节点的处理情况一致化
 */
 
 //Code:
@@ -29,35 +30,23 @@ public:
     ListNode* swapPairs(ListNode* head) {
         if(head==nullptr || head->next==nullptr)
             return head;
-            
-        ListNode* resultHead = head->next;
-        ListNode* pre = head;
+        ListNode dummyHead(0);
+        
+        ListNode* pre = &dummyHead;
         ListNode* cur1 = head;
         ListNode* cur2 = cur1->next;
         
-        cur1->next = cur2->next;
-        cur2->next = cur1;
-        cur1 = cur1->next;
-        
-        while(cur1!=nullptr)
+        while(cur1!=nullptr && cur2!=nullptr)
         {
-            cur2 = cur1->next;
+            pre->next = cur2;
+            cur1->next = cur2->next;
+            cur2->next = cur1;
             
-            if(cur2!=nullptr)  //链表有偶数元素
-            {
-                cur1->next = cur2->next;
-                cur2->next = cur1;
-                pre->next = cur2;
-            }
-            else
-            {
-                cur1->next = nullptr;
-                pre->next = cur1;
-            }
-                
-            pre = cur1;    
+            pre = cur1;
             cur1 = cur1->next;
+            if(cur1 != nullptr)
+                cur2 = cur1->next;
         }
-        return resultHead;
+        return dummyHead.next;
     }
 };
