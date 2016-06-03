@@ -62,3 +62,37 @@ public:
         return paths[row*column - 1];
      }
 };
+
+
+//Code2:
+class Solution {
+public:
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        if (obstacleGrid.empty() || obstacleGrid[0].empty())
+            return 0;
+
+        int row = obstacleGrid.size();
+        int column = obstacleGrid[0].size();
+        std::vector<int> paths(row*column, 1);
+
+        for(int i=0; i < row; ++i)
+            for(int j=0; j<column; ++j)
+            {
+                if(obstacleGrid[i][j] == 1)
+                    paths[i*column+j] = 0;
+                else
+                {
+                    if(i>0 && j>0)
+                        paths[i*column + j] = paths[(i - 1)*column + j] + paths[i*column + j - 1];
+                    else if(i==0 && j>0)  //第一行
+                        paths[j] = paths[j-1];
+                    else if(j==0 && i>0)
+                        paths[i*column] = paths[(i-1)*column];
+                    else 
+                        paths[i*column+j] = 1;
+                }
+            }
+       
+        return paths[row*column - 1];
+     }
+};
