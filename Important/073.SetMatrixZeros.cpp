@@ -60,7 +60,7 @@ public:
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        if(matrix.empty() || matrix[0].empty()) return;
+       if(matrix.empty() || matrix[0].empty()) return;
         int row = matrix.size();
         int column = matrix[0].size();
         
@@ -84,24 +84,17 @@ public:
         //遍历第二行第二列开始的元素
         for(int i = 1; i < row; ++i)
             for(int j = 1; j < column; ++j)
-            {
                 if(matrix[i][j] == 0)
                 {
                     matrix[0][j] = 0;
                     matrix[i][0] = 0;
                 }
-            }
         
         //将第二行第二列的元素根据结果设置为0    
         for(int i = 1; i < row; ++i)
-        if(matrix[i][0] == 0)
             for(int j = 1; j < column; ++j)
-                matrix[i][j] = 0;
-                
-        for(int i = 1; i < column; ++i)
-        if(matrix[0][i] == 0)
-            for(int j = 1; j < row; ++j)
-                matrix[j][i] = 0;
+                if(matrix[i][0] == 0 || matrix[0][j] == 0)
+                    matrix[i][j] = 0;
         
         //设置第一行的元素
         if(firstRow)
@@ -113,7 +106,7 @@ public:
             for(int i = 0; i < row; ++i)
                 matrix[i][0] = 0;
                 
-        return;
+        return; 
     }
 };
 
