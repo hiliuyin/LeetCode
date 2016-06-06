@@ -38,7 +38,7 @@ public:
         ListNode dummyNode(0);
         ListNode* pPre = &dummyNode;
         ListNode* pBeg = head;
-        pPre->next = head;
+        pPre->next = head;   //处理k大于链表长度的情况
         
         while (pBeg != nullptr) 
         {
