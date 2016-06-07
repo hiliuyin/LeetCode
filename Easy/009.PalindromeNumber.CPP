@@ -19,7 +19,12 @@ Similar Problems: Palindrome Linked list
 /*思路：
 方法一：
 将数据分成左右两半，然后反正左侧数据，对数据进行比较
-方法二：依次比较左右两边的数据，然后对数据减掉左右两边的数字继续进行比较，直至数字<10。注意处理左边数字为0的情况，如100021此类情况。
+
+方法二：
+依次比较左右两边的数据，然后对数据减掉左右两边的数字继续进行比较，直至数字<10。注意处理左边数字为0的情况，如100021此类情况。
+
+方法三（代码最简洁）：
+利用题目中提到的反转数字，但是这样会有可能产生溢出。
 */
 
 //Code:
@@ -111,6 +116,25 @@ public:
 	    }
 
 	    return true;
+    }
+};
+
+//Code 3:
+class Solution {
+public:
+    bool isPalindrome(int x) {
+	    if (x < 0)
+		    return false;
+		    
+        int mirror = 0;
+        int xCopy = x;
+        while(x)
+        {
+            mirror = mirror*10 + x%10;
+            x /= 10;
+        }
+        
+        return mirror == xCopy;
     }
 };
 
