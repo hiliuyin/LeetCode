@@ -19,7 +19,7 @@ Similar Problems: Palindrome Linked list
 /*思路：
 方法一：
 将数据分成左右两半，然后反正左侧数据，对数据进行比较
-方法二：依次比较左右两边的数据，然后对数据减掉左右两边的数字继续进行比较，直至数字<10
+方法二：依次比较左右两边的数据，然后对数据减掉左右两边的数字继续进行比较，直至数字<10。注意处理左边数字为0的情况，如100021此类情况。
 */
 
 //Code:
@@ -56,6 +56,61 @@ public:
 	    int reverseLeftNum = reverseInt();
 	    
 	    return reverseLeftNum == rightNum;
+    }
+};
+
+//Code2:
+class Solution {
+public:
+    bool isPalindrome(int x) {
+	    if (x < 0)
+		    return false;
+
+	
+	    int xCopy = x;
+	    auto getDigit = [](int xCopy)->int
+	    {
+		    int digit = 0;
+		    while (xCopy > 0)
+		    {
+			    ++digit;
+			    xCopy /= 10;
+		    }
+		    return digit;
+	    };
+	
+	    int digit = getDigit(x);
+	    int num = std::pow(10, digit-1);
+	    auto judgeZero = [](int x, int digit)
+	    {
+		    while(digit)
+		    {
+			    int val1 = x % 10;
+			    if (val1 != 0)
+				    return false;
+			    --digit;
+			    x /= 10;
+		    }
+		    return true;
+	    };
+	    while (x > 9)
+	    {
+		    int leftNum = x / num;
+		    int rightNum = x % 10;
+		    if (leftNum != rightNum)
+			    return false;
+
+		    x -= num * leftNum;
+		    x /= 10;
+		    digit -= 2;
+
+		    int digitTemp = getDigit(x);
+		    if (digitTemp != digit && !judgeZero(x, digit - digitTemp))
+			    return false;
+		    num /= 100;
+	    }
+
+	    return true;
     }
 };
 
