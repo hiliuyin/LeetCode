@@ -10,6 +10,9 @@ Similar Problems: Binary Tree Level Order Traversal , Maximum Depth of Binary Tr
 /*思路：
 方法一：
 层次遍历二叉树，找到第一个叶子节点就停止查找。 为了统计层数（也就是到叶子节点的路径长度，用nullptr指针作为分隔每一层的节点。
+
+方法二：
+深度遍历二叉树，用递归实现
 */
 
 //Code:
@@ -56,5 +59,20 @@ public:
         }
         
         return depthVal;
+    }
+};
+
+//Code 2:
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(root == nullptr) return 0;
+        if(root->left == nullptr && root->right == nullptr)
+            return 1;
+        if(root->left == nullptr)
+            return minDepth(root->right) + 1;
+        if(root->right == nullptr)
+            return minDepth(root->left) + 1;
+        return std::min(minDepth(root->left), minDepth(root->right)) + 1;
     }
 };
