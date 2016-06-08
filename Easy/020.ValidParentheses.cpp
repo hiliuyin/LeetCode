@@ -4,10 +4,13 @@ Given a string containing just the characters '(', ')', '{', '}', '[' and ']', d
 The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
 
 Tags: stack, string
+Similar Problems:
+22, 32, 302
 */
 
 /*思路:
 如果是( [ {则进栈，否则与栈顶元素比较
+方法二借助了string直接实现
 */
 
 //Code:
