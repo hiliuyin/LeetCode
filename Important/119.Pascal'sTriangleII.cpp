@@ -11,30 +11,23 @@ Tag: Array
 SP: 118
 */
 
-/**/
+/*思路:
+从后向前处理，倒数第二个元素开始，result[j] = result[j] + result[j - 1];
+*/
 
 //Code:
-//Code 1: 
-// 当rowIndex值很大的时候会产生runtime error。
 class Solution {
 public:
     vector<int> getRow(int rowIndex) {
         if(rowIndex < 0)
             return {};
-        vector<int> result;
+        vector<int> result{1};
         
-        for(int i = 0; i <= rowIndex; ++i)
+        for(int i = 1; i <= rowIndex; ++i)
         {
             result.push_back(1);
-            int right = result.size() - 2;
-            int j = 1;
-            
-            for(;j <= (rowIndex + 1) / 2; ++j, --right)
-                result[j] = result[right] + result[right - 1];
-            
-            right = 1;
-            for(; j < result.size() - 1; ++j, --right)
-                result[j] = result[j + right];
+            for(int j = i - 1; j > 0; --j)
+                result[j] = result[j] + result[j - 1];
         }
         return result;
     }
