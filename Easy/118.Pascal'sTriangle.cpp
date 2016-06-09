@@ -18,7 +18,7 @@ Similar Problems: 119
 
 /*思路:
 每到新的一层，都根据上一层的元素求得。
-小技巧：由于每一行的元素都是对称的，可以先求得每一行的前半部分，然后将前半部分拷贝到后半部分
+在求每一层新的元素时，从后向前处理
 */
 
 //Code:
@@ -31,22 +31,11 @@ public:
         
         for(int curRow = 2;curRow <= numRows; ++curRow)
         {
-            std::vector<int> cur(1, 1);
+            std::vector<int> cur = result[curRow - 2];
+            cur.push_back(1);
             
-            int index = 1;
-            while(index < (curRow + 1) / 2)
-            {
-                cur.push_back(result[curRow - 2][index - 1] + result[curRow-2][index]);
-                ++index;
-            }
-            
-            int distance = (curRow % 2 == 0)? 1 : 2;
-            while(index < curRow)
-            {
-                cur.push_back(cur[index - distance]);
-                ++index;
-                distance += 2;
-            }
+            for(int i = cur.size() - 2; i > 0; --i)
+                cur[i] = cur[i] + cur[i-1];
             
             result.push_back(cur);
         }
