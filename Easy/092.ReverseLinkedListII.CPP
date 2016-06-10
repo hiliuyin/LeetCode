@@ -17,9 +17,11 @@ Similar Problems:206
 */
 
 /*思路:
+方法一对要反转的元素仅访问一次。存储要反转元素的前面元素和后面元素。
 */
 
 //Code:
+//Code 1:
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -28,6 +30,38 @@ Similar Problems:206
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        if(head == nullptr )
+            return head;
+            
+        ListNode dummyHead(0);
+        ListNode* pre = &dummyHead;
+        pre->next = head;
+        
+        for(int i = 1; i < m && pre->next != nullptr; ++i)
+             pre = pre->next;
+             
+        ListNode* cur = pre->next;
+        ListNode* tail = cur;
+        ListNode* beg = pre;
+        
+        for(int i = m; i <=n && cur != nullptr; ++i)
+        {
+            ListNode* pNext = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = pNext;
+        }
+        
+        beg->next = pre;
+        tail->next = cur;
+        return dummyHead.next;
+    }
+};
+
+//Code 2:
 class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int m, int n) {
