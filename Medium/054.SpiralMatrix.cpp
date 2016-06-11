@@ -20,46 +20,50 @@ You should return [1,2,3,6,9,8,7,4,5].
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        vector<int> results;
-        if(matrix.size() < 1)
-            return results;
-            
-        int sx = 0, sy = 0, ex = matrix[0].size(), ey = matrix.size();
+        if(matrix.empty() || matrix[0].empty())
+            return {};
         
-        while(sx < ex || sy < ey)
+        std::vector<int> result;
+        int begRow = 0;
+        int endRow = matrix.size() - 1;
+        int begCol = 0;
+        int endCol = matrix[0].size() - 1;
+        
+        while(begRow <= endRow && begCol <= endCol)
         {
-            // right
-            if(sy < ey)
+            //left->right
+            if(begRow <= endRow)
             {
-                for(int i = sy, j = sx; j < ex; ++j)
-                    results.push_back(matrix[i][j]);
-                ++sy;
+                for(int i = begCol; i <= endCol; ++i)
+                    result.emplace_back(matrix[begRow][i]);
+                ++begRow;
             }
             
-            // down
-            if(sx < ex)
+            //up->down
+            if(begCol <= endCol)
             {
-                for(int i = sy, j = ex-1; i < ey; ++i)
-                    results.push_back(matrix[i][j]);
-                --ex;
+                for(int i = begRow; i <= endRow; ++i)
+                    result.emplace_back(matrix[i][endCol]);
+                --endCol;
             }
             
-            // left
-            if(sy < ey)
+            //right->left
+            if(begRow <= endRow)
             {
-                for(int i = ey - 1, j = ex - 1; j >= sx; --j)
-                    results.push_back(matrix[i][j]);
-                --ey;
+                for(int i = endCol; i >= begCol; --i)
+                    result.emplace_back(matrix[endRow][i]);
+                --endRow;
             }
             
-            // up
-            if(sx < ex)
+            //down->up
+            if(begCol <= endCol)
             {
-                for(int i = ey - 1, j = sx; i >= sy; --i)
-                     results.push_back(matrix[i][j]);
-                ++sx;
+                for(int i = endRow; i >= begRow; --i)
+                    result.emplace_back(matrix[i][begCol]);
+                ++begCol;
             }
         }
-        return results;
+        
+        return result;
     }
 };
