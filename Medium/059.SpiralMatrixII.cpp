@@ -15,9 +15,63 @@ SP: 54
 */
 
 /*思路:
+思路一:
+直接按照54的存储matrix的值。
+
+思路二:
+该题目中的数组是n*n的，所以可以利用这一特性来改变访问数组元素的方法。
 */
 
 //Code: 
+//Code 1:
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int> > result(n, vector<int>(n));
+        
+        int begRow = 0;
+        int endRow = n - 1;
+        int begCol = 0;
+        int endCol = n - 1;
+        int count = 1;
+        while(begRow <= endRow && begCol <= endCol)
+        {
+            //left->right
+            if(begRow <= endRow)
+            {
+                for(int i = begCol; i <= endCol; ++i, ++count)
+                    result[begRow][i] = count;
+                ++begRow;
+            }
+            
+            //up->down
+            if(begCol <= endCol)
+            {
+                for(int i = begRow; i <= endRow; ++i, ++count)
+                    result[i][endCol] = count;
+                --endCol;
+            }
+            
+            //right->left
+            if(begRow <= endRow)
+            {
+                for(int i = endCol; i >= begCol; --i, ++count)
+                    result[endRow][i] = count;
+                --endRow;
+            }
+            
+            //down->up
+            if(begCol <= endCol)
+            {
+                for(int i = endRow; i >= begRow; --i, ++count)
+                    result[i][begCol] = count;
+                ++begCol;
+            }
+        }
+        
+        return result;
+    }
+};
 
 //Code 2:
 class Solution {
