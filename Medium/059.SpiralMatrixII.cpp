@@ -77,6 +77,42 @@ public:
 class Solution {
 public:
     vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int> > result(n, vector<int>(n));
+        
+        int num = 1;
+        int count = n/2;
+        
+        for(int k = 0; k < count; ++k)
+        {
+            int iEnd = n - k * 2;
+            
+            //left->right
+            for(int i = 0; i < iEnd; ++i )
+                result[k][k+i] = num++;
+            
+            //up->down    
+            for(int i = 1; i < iEnd; ++i)
+                result[k+i][n-k-1] = num++;
+                
+            //right->left
+            for(int i = 1; i < iEnd; ++i) 
+                result[n-k-1][n-k-i-1] = num++;
+            
+            //down->up
+            --iEnd;
+            for(int i = 1; i < iEnd; ++i)
+                result[n-k-i-1][k] = num++;
+        }
+        
+        if(n % 2 == 1) result[count][count] = num;
+        return result;
+    }
+};
+
+//Code 3:
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
         vector<vector<int> > mat(n, vector<int>(n));
         int r = 0, c = -1, x = 1;
         const int g[5] = { 0, 1, 0, -1, 0 };
