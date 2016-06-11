@@ -79,10 +79,7 @@ public:
     vector<vector<int>> generateMatrix(int n) {
         vector<vector<int> > result(n, vector<int>(n));
         
-        int num = 1;
-        int count = n/2;
-        
-        for(int k = 0; k < count; ++k)
+        for(int k = 0, num = 1, count = (n+1)/2; k < count; ++k)
         {
             int iEnd = n - k * 2;
             
@@ -103,8 +100,7 @@ public:
             for(int i = 1; i < iEnd; ++i)
                 result[n-k-i-1][k] = num++;
         }
-        
-        if(n % 2 == 1) result[count][count] = num;
+
         return result;
     }
 };
