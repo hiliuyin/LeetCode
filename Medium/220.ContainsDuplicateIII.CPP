@@ -119,3 +119,24 @@ public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
     }
     return false;
 }
+
+//Code 3:
+bool containsNearbyAlmostDuplicate(std::vector<int>& nums, int k, int t) 
+{ 
+    if (nums.size() <= 1 || k <= 0) return false;  
+    std::multimap<long long, int> m; 
+    for (int i = 0, iEnd = nums.size(); i < iEnd; ++i) 
+    { 
+        m.emplace(nums[i], i); 
+    } 
+    for (auto it1 = m.cbegin(); it1 != m.cend(); ++it1) 
+    { 
+        auto it2 = it1; 
+        while (++it2 != m.cend() && std::abs(it1->first - it2->first) <= t) 
+        { 
+            if (std::abs(it1->second - it2->second) <= k) 
+                return true; 
+        } 
+    } 
+    return false; 
+}
