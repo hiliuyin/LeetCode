@@ -58,6 +58,8 @@ public:
         for(auto&& num : nums1)
         {
             auto iter = s.find(num);
+            //或者用std的find函数
+            //auto iter = std::find(s.begin(), s.end(), num);
             if(iter != s.end())
             {
                 result.emplace_back(num);
